@@ -1,0 +1,36 @@
+package com.app.springapp.domain.dto.response;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import com.app.springapp.domain.dto.ChatDTO;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+import java.time.LocalDateTime;
+
+@Component
+@Data
+@Schema(description = "채팅 메시지 응답 DTO")
+public class ChatResponseDTO {
+    @Schema(description = "채팅 번호", example = "1")
+    private Long id;
+    @Schema(description = "채팅 내용", example = "안녕하세요!")
+    private String chatContent;
+    @Schema(description = "채팅 생성일시", example = "2024-01-01T00:00:00")
+    private LocalDateTime chatCreateAt;
+    @Schema(description = "채팅 타입", example = "텍스트")
+    private String chatType;
+    @Schema(description = "유저 번호", example = "1")
+    private Long userId;
+    @Schema(description = "채팅방 번호", example = "1")
+    private Long chatRoomId;
+
+    public static ChatResponseDTO from(ChatDTO dto) {
+        ChatResponseDTO res = new ChatResponseDTO();
+        res.setId(dto.getId());
+        res.setChatContent(dto.getChatContent());
+        res.setChatCreateAt(dto.getChatCreateAt());
+        res.setChatType(dto.getChatType());
+        res.setUserId(dto.getUserId());
+        res.setChatRoomId(dto.getChatRoomId());
+        return res;
+    }
+}

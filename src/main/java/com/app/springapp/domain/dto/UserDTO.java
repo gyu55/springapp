@@ -33,4 +33,13 @@ public class UserDTO {
     private String userProfile;
     @Schema(description = "유저 생성일시", example = "2024-01-01T00:00:00")
     private LocalDateTime userCreateAt;
+    @Schema(description = "소셜 로그인 제공 ID")
+    private String socialUserProviderId;
+    @Schema(description = "소셜 로그인(google/naver/kakao/local)", example = "local")
+    private String socialUserProvider;
+
+//    소셜 로그인 제공자의 초기값
+    {
+        socialUserProvider = "local";
+    }
 }

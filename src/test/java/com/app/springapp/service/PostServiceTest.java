@@ -31,7 +31,7 @@ public class PostServiceTest {
     @Test
     public void getPostTest(){
         PostDTO  postDTO = new PostDTO();
-        postDTO.setId(7L);
+        postDTO.setId(99L);
 //        postDTO.setUserId(2L); // 좋아요 한 해
         postDTO.setUserId(3L); // 좋아요 x
 

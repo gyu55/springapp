@@ -16,7 +16,7 @@ public class PostDAO {
     private final PostMapper postMapper;
 
 //    게시글 전체 불러오는 매서드
-    public List<PostDTO> findAll() {
-        return postMapper.selectAll();
+    public List<PostDTO> findAll(String postTag) {
+        return postMapper.selectAll(postTag);
     }
 }

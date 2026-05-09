@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PostService {
 //    게시글 전체 리스트 불러오기
-    public List<PostDTO> getAllPosts();
+    public List<PostDTO> getAllPosts(String postTag);
 
 //    특정 게시글 불러오기
 

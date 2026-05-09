@@ -17,7 +17,12 @@ public class PostServiceTest {
 //    게시글 리스트 전체 불러오는 서비스 테스트
     @Test
     public void getAllPostsTest(){
-        postService.getAllPosts().stream()
+        log.info("전체 게시글 불러오는 관점");
+        postService.getAllPosts("").stream()
+                .forEach((post) -> log.info(post.toString()));
+
+        log.info("자유게시판 불러오기");
+        postService.getAllPosts("자유게시판").stream()
                 .forEach((post) -> log.info(post.toString()));
     }
 }

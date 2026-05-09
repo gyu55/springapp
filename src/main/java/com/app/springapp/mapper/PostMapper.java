@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    public List<PostDTO> selectAll();
+    public List<PostDTO> selectAll(String postTag);
 }

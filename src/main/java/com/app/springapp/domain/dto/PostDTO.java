@@ -23,4 +23,8 @@ public class PostDTO {
     private String postTag;
     @Schema(description = "유저 번호", example = "1")
     private Long userId;
+    @Schema(description = "유저 닉네임", example = "수어러버박지민")
+    private String userNickname;
+    @Schema(description = "유저 프로필", example = "default.jpg")
+    private String userProfile;
 }

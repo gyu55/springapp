@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Data
@@ -18,5 +19,10 @@ public class PostDAO {
 //    게시글 전체 불러오는 매서드
     public List<PostDTO> findAll(String postTag) {
         return postMapper.selectAll(postTag);
+    }
+
+//    특정 게시글 불러오는 매서드
+    public Optional<PostDTO> findById(PostDTO postDTO) {
+        return Optional.ofNullable(postMapper.select(postDTO));
     }
 }

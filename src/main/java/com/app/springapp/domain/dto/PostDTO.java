@@ -27,4 +27,10 @@ public class PostDTO {
     private String userNickname;
     @Schema(description = "유저 프로필", example = "default.jpg")
     private String userProfile;
+    @Schema(description = "게시글 좋아요 갯수", example = "3")
+    private Long likeCount;
+    @Schema(description = "게시글에 달린 갯수", example = "5")
+    private Long commentCount;
+    @Schema(description = "유저가 좋아요 누른 여부", example = "1")
+    private boolean isLiked;
 }

@@ -4,13 +4,48 @@
     <select id="selectAll" parameterType="String" resultType="PostDTO">
         SELECT
             TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT ,TBP.POST_READ_COUNT, TBP.POST_CREATE_AT, TBP.POST_TAG, TBP.USER_ID,
-            TBU.USER_NICKNAME, TBU.USER_PROFILE
+            TBU.USER_NICKNAME, TBU.USER_PROFILE,
+            NVL(TBMC.LIKE_COUNT, 0) AS LIKE_COUNT,
+            NVL(TBCC.COMMENT_COUNT, 0) AS COMMENT_COUNT
         FROM TBL_POST TBP
             JOIN TBL_USER TBU
             ON TBP.USER_ID = TBU.ID
+        LEFT JOIN (
+            SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+            FROM TBL_POST_LIKE
+            GROUP BY POST_ID
+            ) TBMC ON TBP.ID = TBMC.POST_ID
+        LEFT JOIN (
+            SELECT POST_ID, COUNT(POST_ID) AS COMMENT_COUNT
+            FROM TBL_COMMENT
+            GROUP BY POST_ID
+            ) TBCC ON TBP.ID = TBCC.POST_ID
         <if test="postTag != null and postTag != ''">
             WHERE TBP.POST_TAG = #{postTag}
         </if>
         ORDER BY TBP.ID DESC
+    </select>
+
+    <select id="select" parameterType="PostDTO" resultType="PostDTO">
+        SELECT
+            TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_READ_COUNT, TBP.POST_CREATE_AT, TBP.POST_TAG, TBP.USER_ID,
+            TBU.USER_NICKNAME, TBU.USER_PROFILE,
+            NVL(TBPLC.LIKE_COUNT, 0) AS LIKE_COUNT,
+            CASE WHEN TBPLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END AS IS_LIKED,
+            NVL(TBCC.COMMENT_COUNT, 0) AS COMMENT_COUNT
+        FROM TBL_POST TBP
+                 JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
+                 LEFT JOIN (
+            SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+            FROM TBL_POST_LIKE
+            GROUP BY POST_ID
+        ) TBPLC ON TBP.ID = TBPLC.POST_ID
+            LEFT JOIN TBL_POST_LIKE TBPLU ON TBP.ID = TBPLU.POST_ID AND TBPLU.USER_ID = #{userId}
+            LEFT JOIN (
+            SELECT POST_ID, COUNT(POST_ID) AS COMMENT_COUNT
+            FROM TBL_COMMENT
+            GROUP BY POST_ID
+        ) TBCC ON TBP.ID = TBCC.POST_ID
+        WHERE TBP.ID = #{id}
     </select>
 </mapper>

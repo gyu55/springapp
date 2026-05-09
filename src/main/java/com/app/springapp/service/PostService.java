@@ -1,6 +1,7 @@
 package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.repository.PostDAO;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public interface PostService {
     public List<PostDTO> getAllPosts(String postTag);
 
 //    특정 게시글 불러오기
+    public PostDTO getPost(PostDTO postDTO);
 
 //    게시글 작성
 

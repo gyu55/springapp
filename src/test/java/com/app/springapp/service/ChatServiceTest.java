@@ -1,5 +1,6 @@
 package com.app.springapp.service;
 
+import com.app.springapp.domain.dto.request.ChatRequestDTO;
 import com.app.springapp.repository.ChatDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -18,5 +19,17 @@ public class ChatServiceTest {
         chatService.loadAllChatRoomMessage(2L)
                 .stream()
                 .forEach((chat) -> log.info(chat.toString()));
+    }
+
+//    채팅방 내에 메세지 작성
+    @Test
+    public void writeChatRoomMessageTest() {
+        ChatRequestDTO chatRequestDTO = new ChatRequestDTO();
+        chatRequestDTO.setChatRoomId(1L);
+        chatRequestDTO.setChatContent("반가워요");
+        chatRequestDTO.setChatType("텍스트");
+        chatRequestDTO.setUserId(2L);
+
+        chatService.writeChatMessage(chatRequestDTO);
     }
 }

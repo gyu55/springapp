@@ -11,4 +11,12 @@
         ORDER BY TBC.ID DESC
     </select>
 
+    <insert id="insert" parameterType="ChatVO">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT SEQ_CHAT.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_CHAT (ID, CHAT_CONTENT, CHAT_TYPE, USER_ID, CHAT_ROOM_ID)
+        VALUES (#{id}, #{chatContent}, #{chatType}, #{userId}, #{chatRoomId})
+    </insert>
+
 </mapper>

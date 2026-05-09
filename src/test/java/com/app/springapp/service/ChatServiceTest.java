@@ -32,4 +32,12 @@ public class ChatServiceTest {
 
         chatService.writeChatMessage(chatRequestDTO);
     }
+
+//    모든 채팅방 보여주는 서비스
+    @Test
+    public void loadAllChatRoomTest() {
+        chatService.loadAllChatRoom()
+                .stream()
+                .forEach((chatRoom) -> log.info(chatRoom.toString()));
+    }
 }

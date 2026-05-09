@@ -3,6 +3,8 @@ package com.app.springapp.service;
 import com.app.springapp.domain.dto.ChatDTO;
 import com.app.springapp.domain.dto.request.ChatRequestDTO;
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
+import com.app.springapp.domain.dto.response.ChatRoomResponseDTO;
+import com.app.springapp.domain.vo.ChatRoomVO;
 
 import java.util.List;
 
@@ -12,4 +14,7 @@ public interface ChatService {
 
 //    채팅방 내 메세지 작성
     public ApiResponseDTO writeChatMessage(ChatRequestDTO chatRequestDTO);
+
+//    모든 채팅방들을 불러와주기
+    public List<ChatRoomResponseDTO> loadAllChatRoom();
 }

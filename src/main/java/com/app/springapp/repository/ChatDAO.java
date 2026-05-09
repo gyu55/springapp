@@ -6,11 +6,11 @@ import com.app.springapp.mapper.ChatMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
-@Data
+@Repository
 @RequiredArgsConstructor
 public class ChatDAO {
     private final ChatMapper chatMapper;

@@ -3,6 +3,8 @@ package com.app.springapp.api;
 import com.app.springapp.domain.dto.ChatDTO;
 import com.app.springapp.domain.dto.request.ChatRequestDTO;
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
+import com.app.springapp.domain.dto.response.ChatResponseDTO;
+import com.app.springapp.domain.dto.response.ChatRoomResponseDTO;
 import com.app.springapp.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,7 +41,7 @@ public class ChatApi {
     public ResponseEntity<ApiResponseDTO> loadAllChatRoomMessage(
             @PathVariable Long chatRoomId
     ) {
-        List<ChatDTO> chats = chatService.loadAllChatRoomMessage(chatRoomId);
+        List<ChatResponseDTO> chats = chatService.loadAllChatRoomMessage(chatRoomId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponseDTO.of(true, "메세지 불러오기 성공", chats));
@@ -68,5 +70,17 @@ public class ChatApi {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(apiResponseDTO);
+    }
+
+//    모든 채팅방 불러오기
+    @Operation(description = "모든 채팅방 불러오기")
+    @ApiResponse(responseCode = "200", description = "채팅방 목록 불러오기 성공")
+    @ApiResponse(responseCode = "400", description = "채팅방 목록 불러오기 실패 (잘못된 요청)")
+    @GetMapping("/rooms")
+    public ResponseEntity<ApiResponseDTO> getAllChatRooms(){
+        List<ChatRoomResponseDTO> roomList = chatService.loadAllChatRoom();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDTO.of(true, "채팅방 불러오기 성공", roomList));
     }
 }

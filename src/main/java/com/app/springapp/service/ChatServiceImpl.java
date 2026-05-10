@@ -3,6 +3,7 @@ package com.app.springapp.service;
 import com.app.springapp.domain.dto.ChatDTO;
 import com.app.springapp.domain.dto.request.ChatRequestDTO;
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
+import com.app.springapp.domain.dto.response.ChatResponseDTO;
 import com.app.springapp.domain.dto.response.ChatRoomResponseDTO;
 import com.app.springapp.domain.vo.ChatRoomVO;
 import com.app.springapp.domain.vo.ChatVO;
@@ -24,8 +25,10 @@ public class ChatServiceImpl implements ChatService {
 
     //    채팅방 내 모든 메세지 불러오기
     @Override
-    public List<ChatDTO> loadAllChatRoomMessage(Long chatRoomId) {
-        return chatDAO.findAll(chatRoomId);
+    public List<ChatResponseDTO> loadAllChatRoomMessage(Long chatRoomId) {
+        return chatDAO.findAll(chatRoomId).stream()
+                .map(ChatResponseDTO::from)
+                .collect(Collectors.toList());
     }
 
 //    메세지 작성

@@ -51,7 +51,6 @@ public class PostServiceImpl implements PostService {
             totalPages = (postCounts / size) + 1;
         }
 
-
         result.put("posts", posts);
         result.put("currentPage", page);
         result.put("totalPages", totalPages);
@@ -66,5 +65,40 @@ public class PostServiceImpl implements PostService {
         return postDAO.findById(postDTO).orElseThrow(() -> {
            throw new PostException(HttpStatus.BAD_REQUEST, "포스트 불러오기 실패");
         });
+    }
+
+//    특정 유저의 프로필 에서 해당 유저가 작성 한 모든 게시글 보여주기
+    @Override
+    public Map<String, Object> getUserPosts(Long userId, Map<String, Object> req) {
+        int page = (Integer) req.get("page");
+        int size = 4;
+        int offset = (page - 1) * size;
+        int totalPages = 0;
+
+        Map<String, Object> filters = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        filters.put("size", size);
+        filters.put("offset", offset);
+        filters.put("userId", userId);
+
+        List<PostResponseDTO> posts = postDAO.findByUserId(filters).stream()
+                .map(PostResponseDTO::from)
+                .collect(Collectors.toList());
+
+        // 조건에 해당하는 포스트의 총 갯수 보기
+        int postCounts = postDAO.countByUserId(userId);
+        if(postCounts % size == 0){
+            totalPages = postCounts / size;
+        } else {
+            totalPages = (postCounts / size) + 1;
+        }
+
+        result.put("posts", posts);
+        result.put("currentPage", page);
+        result.put("totalPages", totalPages);
+        result.put("size", size);
+        result.put("postCounts", postCounts);
+
+        return result;
     }
 }

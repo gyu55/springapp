@@ -52,4 +52,18 @@ public class PostServiceTest {
 
         log.info(postService.getPost(postDTO).toString());
     }
+
+//    유저의 특정 게시글 불러오게 하기
+    @Test
+    public void getUserPostsTest(){
+        Map<String,Object> req = new HashMap<>();
+        req.put("page",1);
+
+        Map<String, Object> result = postService.getUserPosts(5L, req);
+
+        result.forEach((k,v)->{
+            log.info("유저 게시글 Key: {}", k);
+            log.info("유저 게시글 Value: {}", v);
+        });
+    }
 }

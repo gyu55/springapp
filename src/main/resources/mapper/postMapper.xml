@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.springapp.mapper.PostMapper">
+
     <select id="selectAll" parameterType="map" resultType="PostDTO">
         SELECT
-            TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT ,TBP.POST_READ_COUNT, TBP.POST_CREATE_AT, TBP.POST_TAG, TBP.USER_ID,
-            TBU.USER_NICKNAME, TBU.USER_PROFILE,
-            NVL(TBMC.LIKE_COUNT, 0) AS LIKE_COUNT,
-            NVL(TBCC.COMMENT_COUNT, 0) AS COMMENT_COUNT
-        FROM TBL_POST TBP
-            JOIN TBL_USER TBU
-            ON TBP.USER_ID = TBU.ID
-        LEFT JOIN (
-            SELECT POST_ID, COUNT(*) AS LIKE_COUNT
-            FROM TBL_POST_LIKE
-            GROUP BY POST_ID
-            ) TBMC ON TBP.ID = TBMC.POST_ID
-        LEFT JOIN (
-            SELECT POST_ID, COUNT(POST_ID) AS COMMENT_COUNT
-            FROM TBL_COMMENT
-            GROUP BY POST_ID
-            ) TBCC ON TBP.ID = TBCC.POST_ID
+            ID, POST_TITLE, POST_CONTENT ,POST_READ_COUNT, POST_CREATE_AT, POST_TAG, USER_ID,
+            USER_NICKNAME, USER_PROFILE,
+            NVL(LIKE_COUNT, 0) AS LIKE_COUNT,
+            NVL(COMMENT_COUNT, 0) AS COMMENT_COUNT
+        FROM VW_POST_SUMMARY
         <if test="postTag != null and postTag != ''">
-            WHERE TBP.POST_TAG = #{postTag}
+            WHERE POST_TAG = #{postTag}
         </if>
-        ORDER BY TBP.ID DESC
+        ORDER BY ID DESC
         OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
 
     <select id="select" parameterType="PostDTO" resultType="PostDTO">
         SELECT
-            TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT, TBP.POST_READ_COUNT, TBP.POST_CREATE_AT, TBP.POST_TAG, TBP.USER_ID,
-            TBU.USER_NICKNAME, TBU.USER_PROFILE,
-            NVL(TBPLC.LIKE_COUNT, 0) AS LIKE_COUNT,
-            CASE WHEN TBPLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END AS IS_LIKED,
-            NVL(TBCC.COMMENT_COUNT, 0) AS COMMENT_COUNT
-        FROM TBL_POST TBP
-                 JOIN TBL_USER TBU ON TBP.USER_ID = TBU.ID
-                 LEFT JOIN (
-            SELECT POST_ID, COUNT(*) AS LIKE_COUNT
-            FROM TBL_POST_LIKE
-            GROUP BY POST_ID
-        ) TBPLC ON TBP.ID = TBPLC.POST_ID
-            LEFT JOIN TBL_POST_LIKE TBPLU ON TBP.ID = TBPLU.POST_ID AND TBPLU.USER_ID = #{userId}
-            LEFT JOIN (
-            SELECT POST_ID, COUNT(POST_ID) AS COMMENT_COUNT
-            FROM TBL_COMMENT
-            GROUP BY POST_ID
-        ) TBCC ON TBP.ID = TBCC.POST_ID
-        WHERE TBP.ID = #{id}
+            VPS.ID, VPS.POST_TITLE, VPS.POST_READ_COUNT, VPS.POST_CREATE_AT, VPS.POST_TAG, VPS.USER_ID,
+            VPS.USER_NICKNAME, VPS.USER_PROFILE,
+            NVL(VPS.LIKE_COUNT, 0) AS LIKE_COUNT,
+            NVL(VPS.COMMENT_COUNT, 0) AS COMMENT_COUNT,
+            CASE WHEN TBPLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END AS IS_LIKED
+        FROM VW_POST_SUMMARY VPS
+        LEFT JOIN TBL_POST_LIKE TBPLU
+            ON VPS.ID = TBPLU.POST_ID AND TBPLU.USER_ID = #{userId}
+        WHERE VPS.ID = #{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="map" resultType="PostDTO">
+        SELECT
+            ID, POST_TITLE, POST_CONTENT ,POST_READ_COUNT, POST_CREATE_AT, POST_TAG, USER_ID,
+            USER_NICKNAME, USER_PROFILE,
+            NVL(LIKE_COUNT, 0) AS LIKE_COUNT,
+            NVL(COMMENT_COUNT, 0) AS COMMENT_COUNT
+        FROM VW_POST_SUMMARY
+        WHERE USER_ID = #{userId}
+        ORDER BY ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
 
     <select id="selectCount" parameterType="String" resultType="int">
@@ -57,4 +48,12 @@
             WHERE POST_TAG = #{postTag}
         </if>
     </select>
+
+    <select id="countByUserId" parameterType="Long" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        WHERE USER_ID = #{userId}
+    </select>
+
+
 </mapper>

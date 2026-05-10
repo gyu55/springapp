@@ -14,6 +14,9 @@ public interface PostService {
 //    특정 게시글 불러오기
     public PostDTO getPost(PostDTO postDTO);
 
+//    유저가 작성 한 게시글들 불러오기
+    public Map<String, Object> getUserPosts(Long userId, Map<String, Object> filters);
+
 //    게시글 작성
 
 //    게시글 수정

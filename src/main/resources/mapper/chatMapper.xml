@@ -11,6 +11,12 @@
         ORDER BY TBC.ID DESC
     </select>
 
+    <select id="existByChatRoomIdAndUserId" parameterType="ChatVO" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_CHAT
+        WHERE CHAT_ROOM_ID = #{chatRoomId} AND USER_ID = #{userId}
+    </select>
+
     <insert id="insert" parameterType="ChatVO">
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
             SELECT SEQ_CHAT.NEXTVAL FROM DUAL

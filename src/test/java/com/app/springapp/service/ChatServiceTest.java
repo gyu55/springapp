@@ -21,6 +21,17 @@ public class ChatServiceTest {
                 .forEach((chat) -> log.info(chat.toString()));
     }
 
+//    해당 채팅방에 유저가 참여 중인지 확인
+    @Test
+    public void isUserInChatRoomTest(){
+        ChatRequestDTO chatRequestDTO = new ChatRequestDTO();
+        chatRequestDTO.setChatRoomId(1L);
+        chatRequestDTO.setUserId(1L);
+
+        boolean result = chatService.isUserInChatRoom(chatRequestDTO);
+        log.info("결과: {}", result);
+    }
+
 //    채팅방 내에 메세지 작성
     @Test
     public void writeChatRoomMessageTest() {

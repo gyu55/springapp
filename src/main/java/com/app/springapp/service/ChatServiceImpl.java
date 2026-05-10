@@ -10,12 +10,14 @@ import com.app.springapp.domain.vo.ChatVO;
 import com.app.springapp.repository.ChatDAO;
 import com.app.springapp.repository.ChatRoomDAO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional(rollbackFor = {Exception.class})
 @RequiredArgsConstructor
@@ -43,7 +45,14 @@ public class ChatServiceImpl implements ChatService {
         }
     }
 
-//    모든 채팅방 불러와주기 (페이지 들어왔을 때 보이는 모든 채팅방)
+    @Override
+    public boolean isUserInChatRoom(ChatRequestDTO chatRequestDTO) {
+        ChatVO chatVO = ChatVO.from(chatRequestDTO);
+        log.info("테스트 위한 chat vo: {}", chatVO);
+        return chatDAO.existByChatRoomIdAndUserId(chatVO) != 0;
+    }
+
+    //    모든 채팅방 불러와주기 (페이지 들어왔을 때 보이는 모든 채팅방)
     @Override
     public List<ChatRoomResponseDTO> loadAllChatRoom() {
         List<ChatRoomVO> chatRoomList = chatRoomDAO.findAll();

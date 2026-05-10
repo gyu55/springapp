@@ -16,6 +16,9 @@ public interface ChatService {
 //    채팅방 내 메세지 작성
     public ApiResponseDTO writeChatMessage(ChatRequestDTO chatRequestDTO);
 
+//    유저가 채팅방 남긴 이력 확인
+    public boolean isUserInChatRoom(ChatRequestDTO chatRequestDTO);
+
 //    모든 채팅방들을 불러와주기
     public List<ChatRoomResponseDTO> loadAllChatRoom();
 }

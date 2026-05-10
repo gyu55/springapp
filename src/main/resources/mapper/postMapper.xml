@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.springapp.mapper.PostMapper">
-    <select id="selectAll" parameterType="String" resultType="PostDTO">
+    <select id="selectAll" parameterType="map" resultType="PostDTO">
         SELECT
             TBP.ID, TBP.POST_TITLE, TBP.POST_CONTENT ,TBP.POST_READ_COUNT, TBP.POST_CREATE_AT, TBP.POST_TAG, TBP.USER_ID,
             TBU.USER_NICKNAME, TBU.USER_PROFILE,
@@ -24,6 +24,7 @@
             WHERE TBP.POST_TAG = #{postTag}
         </if>
         ORDER BY TBP.ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
 
     <select id="select" parameterType="PostDTO" resultType="PostDTO">
@@ -47,5 +48,13 @@
             GROUP BY POST_ID
         ) TBCC ON TBP.ID = TBCC.POST_ID
         WHERE TBP.ID = #{id}
+    </select>
+
+    <select id="selectCount" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        <if test="postTag != null and postTag != ''">
+            WHERE POST_TAG = #{postTag}
+        </if>
     </select>
 </mapper>

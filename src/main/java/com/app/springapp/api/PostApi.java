@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
@@ -33,11 +36,15 @@ public class PostApi {
             schema = @Schema(type = "String")
     )
     public ResponseEntity<ApiResponseDTO> getAllPosts(
-            @RequestParam(required = false, defaultValue = "") String postTag
+            @RequestParam(required = false, defaultValue = "") String postTag,
+            @RequestParam(defaultValue = "1") int page
     ){
+        Map<String,Object> map = new HashMap<>();
+        map.put("postTag",postTag);
+        map.put("page",page);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponseDTO.of(true, "게시글 목록 불러오기 성공", postService.getAllPosts(postTag)));
+                .body(ApiResponseDTO.of(true, "게시글 목록 불러오기 성공", postService.getAllPosts(map)));
     }
 
 //    특정 게시글 가져오기

@@ -6,4 +6,5 @@
         FROM TBL_CHAT_ROOM
     </select>
 
+
 </mapper>

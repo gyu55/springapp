@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // 커뮤니티 서비스 중 포스트 관련 서비스 테스트 위한 단테 파일
 
 @SpringBootTest
@@ -19,12 +22,24 @@ public class PostServiceTest {
     @Test
     public void getAllPostsTest(){
         log.info("전체 게시글 불러오는 관점");
-        postService.getAllPosts(null).stream()
-                .forEach((post) -> log.info(post.toString()));
+        Map<String,Object> map1 = new HashMap<>();
+        Map<String,Object> map2 = new HashMap<>();
 
-        log.info("자유게시판 불러오기");
-        postService.getAllPosts("자유게시판").stream()
-                .forEach((post) -> log.info(post.toString()));
+        map1.put("page",2);
+//        postService.getAllPosts(map1).stream()
+//                .forEach((post) -> log.info(post.toString()));
+        Map<String,Object> result1 = postService.getAllPosts(map1);
+        result1.forEach((k,v)->{
+           log.info("Key: {}", k);
+           log.info("Value: {}", v);
+        });
+
+        map2.put("page",1);
+        map2.put("postTag","자유게시판");
+
+//        log.info("자유게시판 불러오기");
+//        postService.getAllPosts(map2).stream()
+//                .forEach((post) -> log.info(post.toString()));
     }
 
 //    단위 개시글 불러오기 테스트

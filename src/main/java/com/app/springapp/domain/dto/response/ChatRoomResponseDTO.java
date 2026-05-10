@@ -1,5 +1,6 @@
 package com.app.springapp.domain.dto.response;
 
+import com.app.springapp.domain.vo.ChatRoomVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.app.springapp.domain.dto.ChatRoomDTO;
 import lombok.Data;
@@ -31,6 +32,17 @@ public class ChatRoomResponseDTO {
         res.setChatRoomCreateAt(dto.getChatRoomCreateAt());
         res.setChatRoomProfile(dto.getChatRoomProfile());
         res.setUserId(dto.getUserId());
+        return res;
+    }
+
+    public static ChatRoomResponseDTO from(ChatRoomVO chatRoomVO) {
+        ChatRoomResponseDTO res = new ChatRoomResponseDTO();
+        res.setId(chatRoomVO.getId());
+        res.setChatRoomName(chatRoomVO.getChatRoomName());
+        res.setChatRoomType(chatRoomVO.getChatRoomType());
+        res.setChatRoomCreateAt(chatRoomVO.getChatRoomCreateAt());
+        res.setChatRoomProfile(chatRoomVO.getChatRoomProfile());
+        res.setUserId(chatRoomVO.getUserId());
         return res;
     }
 }

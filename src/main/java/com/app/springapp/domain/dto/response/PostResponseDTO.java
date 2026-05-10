@@ -24,6 +24,14 @@ public class PostResponseDTO {
     private String postTag;
     @Schema(description = "유저 번호", example = "1")
     private Long userId;
+    @Schema(description = "유저 닉네임", example = "수어러버박지민")
+    private String userNickname;
+    @Schema(description = "유저 프로필", example = "default.jpg")
+    private String userProfile;
+    @Schema(description = "게시글 좋아요 갯수", example = "3")
+    private Long likeCount;
+    @Schema(description = "게시글에 달린 갯수", example = "5")
+    private Long commentCount;
 
     public static PostResponseDTO from(PostDTO dto) {
         PostResponseDTO res = new PostResponseDTO();
@@ -34,6 +42,10 @@ public class PostResponseDTO {
         res.setPostCreateAt(dto.getPostCreateAt());
         res.setPostTag(dto.getPostTag());
         res.setUserId(dto.getUserId());
+        res.setUserNickname(dto.getUserNickname());
+        res.setUserProfile(dto.getUserProfile());
+        res.setLikeCount(dto.getLikeCount());
+        res.setCommentCount(dto.getCommentCount());
         return res;
     }
 }

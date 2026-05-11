@@ -55,4 +55,9 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <insert id="">
+        INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, POST_TAG, USER_ID)
+        VALUES (SEQ_POST.NEXTVAL, '수어 궁금증', '수어는 어떤가요?', '자유게시판', 2)
+    </insert>
+
 </mapper>

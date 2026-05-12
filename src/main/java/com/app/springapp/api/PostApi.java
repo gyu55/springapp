@@ -146,4 +146,13 @@ public class PostApi {
     }
 
 //    게시글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponseDTO> deletePost(
+            @PathVariable Long id
+    ){
+        postService.deletePost(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(ApiResponseDTO.of(true, "게시글 삭제 성공"));
+    }
 }

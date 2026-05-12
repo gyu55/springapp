@@ -139,7 +139,12 @@ public class PostServiceImpl implements PostService {
 //    게시글 삭제
     @Override
     public void deletePost(Long id) {
-
+        Long userId = getUserId();
+        if(canTouchPost(id, userId)){
+            postDAO.updatePostIsDeleted(id);
+        } else {
+            throw new PostException(HttpStatus.BAD_REQUEST, "해당 게시글 삭제 권한 없습니다.");
+        }
     }
 
 //    유저가 해당 게시글 접근 권한 있는지 확인

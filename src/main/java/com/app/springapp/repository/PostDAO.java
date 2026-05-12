@@ -57,4 +57,9 @@ public class PostDAO {
     public void update(PostVO postVO) {
         postMapper.update(postVO);
     }
+
+//    게시글 삭제
+    public void updatePostIsDeleted(Long id) {
+        postMapper.updatePostIsDeleted(id);
+    }
 }

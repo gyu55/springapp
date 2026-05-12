@@ -14,6 +14,7 @@ public class PostVO {
     private int postReadCount;
     private LocalDateTime postCreateAt;
     private String postTag;
+    private boolean postIsDeleted;
     private Long userId;
 
     public static PostVO from(PostRequestDTO postRequestDTO) {
@@ -23,4 +24,11 @@ public class PostVO {
         postVO.setPostTag(postRequestDTO.getPostTag());
         return postVO;
     }
+
+//    public static PostVO from(PostDeleteRequestDTO  postDeleteRequestDTO) {
+//        PostVO postVO = new PostVO();
+//        postVO.setId(postDeleteRequestDTO.getId());
+//        postVO.setUserId(postDeleteRequestDTO.getUserId());
+//        postVO.setPostIsDeleted(postDeleteRequestDTO.isPostIsDeleted());
+//    }
 }

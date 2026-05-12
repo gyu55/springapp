@@ -100,4 +100,11 @@ public class PostServiceTest {
 
         postService.updatePost(id, postRequestDTO);
     }
+
+//    게시글 삭제 테스트
+    @Test
+    public void deletePostTest(){
+        Long id = 21L;
+        postService.deletePost(id);
+    }
 }

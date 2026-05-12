@@ -55,6 +55,12 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <select id="existByIdAndUserId" parameterType="PostVO" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        WHERE ID = #{id} AND USER_ID = #{userId}
+    </select>
+
     <insert id="insert" parameterType="PostVO">
         <selectKey resultType="Long" keyProperty="id" order="BEFORE">
             SELECT SEQ_POST.NEXTVAL FROM DUAL
@@ -62,5 +68,11 @@
         INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, POST_TAG, USER_ID)
         VALUES (#{id}, #{postTitle}, #{postContent}, #{postTag}, #{userId})
     </insert>
+
+    <update id="update" parameterType="PostVO">
+        UPDATE TBL_POST
+        SET POST_TITLE = #{postTitle}, POST_CONTENT = #{postContent}, POST_TAG = #{postTag}
+        WHERE ID = #{id}
+    </update>
 
 </mapper>

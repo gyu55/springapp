@@ -79,4 +79,25 @@ public class PostServiceTest {
 
         postService.writePost(userId, postRequestDTO);
     }
+
+//    게시글 접근권한 테스트
+    @Test
+    public void canTouchPostTest(){
+        Long id = 42L;
+        Long userId = 4L;
+
+        boolean result = postService.canTouchPost(id, userId);
+        log.info("접근 가능 여부: {}", result);
+    }
+
+//    게시글 수정 테스트
+    @Test
+    public void updatePostTest(){
+        Long id = 21L;
+        PostRequestDTO postRequestDTO = new PostRequestDTO();
+        postRequestDTO.setPostTitle("점자란");
+        postRequestDTO.setPostContent("만국 공통 입니다.");
+
+        postService.updatePost(id, postRequestDTO);
+    }
 }

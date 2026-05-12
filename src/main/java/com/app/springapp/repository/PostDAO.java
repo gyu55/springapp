@@ -43,8 +43,18 @@ public class PostDAO {
         return postMapper.countByUserId(userId);
     }
 
+//    유저가 해당 게시글을 작성했어서 수정에 대한 권한이 있는지?
+    public int existByIdAndUserId(PostVO postVO) {
+        return postMapper.existByIdAndUserId(postVO);
+    }
+
 //    포스트 작성
     public void save(PostVO postVO) {
         postMapper.insert(postVO);
+    }
+
+//    게시글 수정
+    public void update(PostVO postVO) {
+        postMapper.update(postVO);
     }
 }

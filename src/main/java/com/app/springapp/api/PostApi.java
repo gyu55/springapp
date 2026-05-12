@@ -129,4 +129,21 @@ public class PostApi {
                 .status(HttpStatus.OK)
                 .body(ApiResponseDTO.of(true, "게시글 작성 성공"));
     }
+
+//    게시글 수정
+    @PutMapping("/{id}")
+    @Operation(description = "게시글 수정하기")
+    @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
+    @ApiResponse(responseCode = "400", description = "해당 게시글 수정 권한 없습니다.")
+    public ResponseEntity<ApiResponseDTO> updatePost(
+            @PathVariable Long id,
+            @RequestBody PostRequestDTO postRequestDTO
+    ){
+        postService.updatePost(id, postRequestDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDTO.of(true, "게시글 수정 성공"));
+    }
+
+//    게시글 삭제
 }

@@ -25,6 +25,12 @@ public interface PostMapper {
 //    유저 작성한 게시글 전체 갯수
     public int countByUserId(Long userId);
 
+//    해당 게시글 수정 가능한지 (해당 게시글을 해당 유저가 작성한게 맞는지?)
+    public int existByIdAndUserId(PostVO postVO);
+
 //    게시글 작성
     public void insert(PostVO postVO);
+
+//    게시글 수정
+    public void update(PostVO postVO);
 }

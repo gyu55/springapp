@@ -22,6 +22,11 @@ public interface PostService {
     public void writePost(Long userId, PostRequestDTO postRequestDTO);
 
 //    게시글 수정
+    public void updatePost(Long id, PostRequestDTO postRequestDTO);
 
 //    게시글 삭제
+    public void deletePost(Long id);
+
+//    게시글 접근권한 확인
+    public boolean canTouchPost(Long id, Long userId);
 }

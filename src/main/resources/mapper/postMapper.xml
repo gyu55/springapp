@@ -55,9 +55,12 @@
         WHERE USER_ID = #{userId}
     </select>
 
-    <insert id="">
+    <insert id="insert" parameterType="PostVO">
+        <selectKey resultType="Long" keyProperty="id" order="BEFORE">
+            SELECT SEQ_POST.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, POST_TAG, USER_ID)
-        VALUES (SEQ_POST.NEXTVAL, '수어 궁금증', '수어는 어떤가요?', '자유게시판', 2)
+        VALUES (#{id}, #{postTitle}, #{postContent}, #{postTag}, #{userId})
     </insert>
 
 </mapper>

@@ -14,6 +14,6 @@ public class PostRequestDTO {
     private String postContent;
     @Schema(description = "게시글 태그", example = "자유게시판")
     private String postTag;
-    @Schema(description = "유저 번호", example = "1", required = true)
-    private Long userId;
+//    @Schema(description = "유저 번호", example = "1", required = true)
+//    private Long userId;
 }

@@ -1,7 +1,9 @@
 package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import com.app.springapp.domain.dto.response.PostResponseDTO;
+import com.app.springapp.domain.vo.PostVO;
 import com.app.springapp.exception.PostException;
 import com.app.springapp.repository.PostDAO;
 import lombok.RequiredArgsConstructor;
@@ -100,5 +102,17 @@ public class PostServiceImpl implements PostService {
         result.put("postCounts", postCounts);
 
         return result;
+    }
+
+//    게시글 작성
+    @Override
+    public void writePost(Long userId, PostRequestDTO postRequestDTO) {
+        PostVO postVO = PostVO.from(postRequestDTO);
+        postVO.setUserId(userId);
+        try {
+            postDAO.save(postVO);
+        } catch (Exception e) {
+            throw new PostException(HttpStatus.BAD_REQUEST, "게시글 작성 실패");
+        }
     }
 }

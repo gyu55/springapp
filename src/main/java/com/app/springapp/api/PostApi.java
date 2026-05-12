@@ -1,6 +1,7 @@
 package com.app.springapp.api;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
 import com.app.springapp.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +22,11 @@ import java.util.Map;
 @RequestMapping("/api/posts")
 public class PostApi {
     private final PostService postService;
+
+//    로그인 되기 전 까지 유저 아이디 관련하는거 담당하는 매서드 임시 정의
+    public Long getUserId(){
+        return 3L;
+    }
 
 //    전체 포스트 가져오는거 정의
     @GetMapping("")
@@ -106,5 +112,21 @@ public class PostApi {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponseDTO.of(true, "유저 게시글 로드 성공", result));
+    }
+
+//    게시글 작성
+    @PostMapping("")
+    @Operation(description = "게시글 작성하기")
+    @ApiResponse(responseCode = "200", description = "게시글 작성 성공")
+    @ApiResponse(responseCode = "400", description = "게시글 작성 실패 (잘못된 요청)")
+    public  ResponseEntity<ApiResponseDTO> writePostTest(
+            @RequestBody PostRequestDTO postRequestDTO
+    ){
+//        가상 유저 아이디 생성 (이건 추후)
+        Long userId = getUserId();
+        postService.writePost(userId, postRequestDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDTO.of(true, "게시글 작성 성공"));
     }
 }

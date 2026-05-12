@@ -1,8 +1,10 @@
 package com.app.springapp.mapper;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +24,7 @@ public interface PostMapper {
 
 //    유저 작성한 게시글 전체 갯수
     public int countByUserId(Long userId);
+
+//    게시글 작성
+    public void insert(PostVO postVO);
 }

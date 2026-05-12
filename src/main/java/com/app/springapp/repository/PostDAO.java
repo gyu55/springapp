@@ -1,6 +1,7 @@
 package com.app.springapp.repository;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.vo.PostVO;
 import com.app.springapp.mapper.PostMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,10 @@ public class PostDAO {
 //    유저가 작성한 게시글 전체 갯수
     public int countByUserId(Long userId) {
         return postMapper.countByUserId(userId);
+    }
+
+//    포스트 작성
+    public void save(PostVO postVO) {
+        postMapper.insert(postVO);
     }
 }

@@ -9,4 +9,9 @@ import java.util.List;
 public interface ChatRoomMapper {
 //    채팅방 방 목록 불러와주기
     public List<ChatRoomVO> selectAll();
+
+//    채팅방 생성
+    public void insert(ChatRoomVO chatRoomVO);
+
+//    채팅방 수정
 }

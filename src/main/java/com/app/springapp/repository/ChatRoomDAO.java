@@ -18,4 +18,9 @@ public class ChatRoomDAO {
     public List<ChatRoomVO> findAll(){
         return chatRoomMapper.selectAll();
     }
+
+//    채팅방 생성
+    public void save(ChatRoomVO chatRoomVO){
+        chatRoomMapper.insert(chatRoomVO);
+    }
 }

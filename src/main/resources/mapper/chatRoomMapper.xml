@@ -5,4 +5,12 @@
         SELECT ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_CREATE_AT, CHAT_ROOM_PROFILE, USER_ID
         FROM TBL_CHAT_ROOM
     </select>
+
+    <insert id="insert" parameterType="ChatRoomVO">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT SEQ_CHAT_ROOM.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_CHAT_ROOM (ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_PROFILE, USER_ID)
+        VALUES (#{id}, #{chatRoomName}, #{chatRoomType}, #{chatRoomProfile}, #{userId})
+    </insert>
 </mapper>

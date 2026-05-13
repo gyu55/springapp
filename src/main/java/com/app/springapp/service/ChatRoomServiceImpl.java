@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ChatRoomServiceImpl implements ChatRoomService {
     private final ChatMemberDAO chatMemberDAO;
+    private final CommunityAuthService communityAuthService;
 
     //    채팅방 방 생성
     @Override
@@ -22,7 +23,12 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
 //    유저가 채팅방에 참여
     @Override
-    public void joinChatRoom(ChatMemberRequestDTO chatMemberRequestDTO) {
-        chatMemberDAO.save(ChatMemberVO.from(chatMemberRequestDTO));
+    public void joinChatRoom(Long chatRoomId) {
+        Long userId = communityAuthService.getUserId();
+        ChatMemberVO chatMemberVO = new ChatMemberVO();
+        chatMemberVO.setChatRoomId(chatRoomId);
+        chatMemberVO.setUserId(userId);
+
+        chatMemberDAO.save(chatMemberVO);
     }
 }

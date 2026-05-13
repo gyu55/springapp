@@ -14,10 +14,10 @@ public interface ChatService {
     public List<ChatResponseDTO> loadAllChatRoomMessage(Long chatRoomId);
 
 //    채팅방 내 메세지 작성
-    public ApiResponseDTO writeChatMessage(ChatRequestDTO chatRequestDTO);
+    public ApiResponseDTO writeChatMessage(Long chatRoomId, ChatRequestDTO chatRequestDTO);
 
-//    유저가 채팅방 남긴 이력 확인
-    public boolean isUserInChatRoom(ChatRequestDTO chatRequestDTO);
+//    유저가 채팅방 남긴 이력 확인 (해당 방에 참여가 되어 있는지 , 메세지 기준으로)
+    public boolean isUserInChatRoom(Long chatRoomId);
 
 //    모든 채팅방들을 불러와주기
     public List<ChatRoomResponseDTO> loadAllChatRoom();

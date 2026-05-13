@@ -8,5 +8,5 @@ public interface ChatRoomService {
     public void createChatRoom(ChatRequestDTO chatRequestDTO);
 
 //    유저의 채팅방 참여 목록 추가
-    public void joinChatRoom(ChatMemberRequestDTO chatMemberRequestDTO);
+    public void joinChatRoom(Long chatRoomId);
 }

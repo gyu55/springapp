@@ -25,7 +25,7 @@ public class ChatApi {
 
     private final ChatService chatService;
 
-//    채팅방 내에서 메세지 전체 조호
+//    채팅방 내에서 메세지 전체 조회
     @GetMapping("{chatRoomId}")
     @Operation(description = "채팅방 내 전체 메세지 조회")
     @ApiResponse(responseCode = "200", description = "전체 메세지 조회 성공")
@@ -64,8 +64,7 @@ public class ChatApi {
             @PathVariable Long chatRoomId,
             @RequestBody ChatRequestDTO chatRequestDTO
             ){
-        chatRequestDTO.setChatRoomId(chatRoomId);
-        ApiResponseDTO apiResponseDTO = chatService.writeChatMessage(chatRequestDTO);
+        ApiResponseDTO apiResponseDTO = chatService.writeChatMessage(chatRoomId, chatRequestDTO);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

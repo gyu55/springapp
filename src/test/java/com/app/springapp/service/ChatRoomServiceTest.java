@@ -14,10 +14,7 @@ public class ChatRoomServiceTest {
 
     @Test
     public void joinChatRoomTest() {
-        ChatMemberRequestDTO chatMemberRequestDTO = new ChatMemberRequestDTO();
-        chatMemberRequestDTO.setUserId(10L);
-        chatMemberRequestDTO.setChatRoomId(2L);
-
-        chatRoomService.joinChatRoom(chatMemberRequestDTO);
+        Long chatRoomId = 3L;
+        chatRoomService.joinChatRoom(chatRoomId);
     }
 }

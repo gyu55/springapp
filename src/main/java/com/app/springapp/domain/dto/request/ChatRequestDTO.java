@@ -12,8 +12,4 @@ public class ChatRequestDTO {
     private String chatContent;
     @Schema(description = "채팅 타입", example = "텍스트", required = true)
     private String chatType;
-    @Schema(description = "유저 번호", example = "1", required = true)
-    private Long userId;
-    @Schema(description = "채팅방 번호", example = "1", required = true)
-    private Long chatRoomId;
 }

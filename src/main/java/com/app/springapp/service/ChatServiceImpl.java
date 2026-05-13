@@ -25,6 +25,7 @@ public class ChatServiceImpl implements ChatService {
     private final ChatDAO chatDAO;
     private final ChatRoomDAO chatRoomDAO;
 
+//    채팅 메세지 관련
     //    채팅방 내 모든 메세지 불러오기
     @Override
     public List<ChatResponseDTO> loadAllChatRoomMessage(Long chatRoomId) {
@@ -52,7 +53,9 @@ public class ChatServiceImpl implements ChatService {
         return chatDAO.existByChatRoomIdAndUserId(chatVO) != 0;
     }
 
-    //    모든 채팅방 불러와주기 (페이지 들어왔을 때 보이는 모든 채팅방)
+//    채팅방 관련
+
+//    모든 채팅방 불러와주기 (커뮤니티 페이지 들어왔을 때 보이는 모든 채팅방)
     @Override
     public List<ChatRoomResponseDTO> loadAllChatRoom() {
         List<ChatRoomVO> chatRoomList = chatRoomDAO.findAll();

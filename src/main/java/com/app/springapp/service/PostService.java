@@ -2,10 +2,6 @@ package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
 import com.app.springapp.domain.dto.request.PostRequestDTO;
-import com.app.springapp.domain.dto.response.PostResponseDTO;
-import com.app.springapp.repository.PostDAO;
-
-import java.util.List;
 import java.util.Map;
 
 public interface PostService {
@@ -31,4 +27,5 @@ public interface PostService {
     public boolean canTouchPost(Long id, Long userId);
 
 //    게시글 조회수 증가
+    public void increasePostReadCount(Long id);
 }

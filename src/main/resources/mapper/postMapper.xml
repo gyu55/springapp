@@ -77,6 +77,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updatePostReadCount" parameterType="Long">
+        UPDATE TBL_POST
+        SET POST_READ_COUNT = POST_READ_COUNT + 1
+        WHERE ID = #{id}
+    </update>
+
     <update id="updatePostIsDeleted" parameterType="Long">
         UPDATE TBL_POST
         SET POST_IS_DELETED = 1

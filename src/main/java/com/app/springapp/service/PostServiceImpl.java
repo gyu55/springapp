@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(rollbackFor = {Exception.class})
+@Transactional(rollbackFor = {Exception.class, PostException.class})
 public class PostServiceImpl implements PostService {
     private final PostDAO postDAO;
 
@@ -67,11 +67,19 @@ public class PostServiceImpl implements PostService {
         return result;
     }
 
+//    게시글 조회
     @Override
     public PostDTO getPost(PostDTO postDTO) {
-        return postDAO.findById(postDTO).orElseThrow(() -> {
-           throw new PostException(HttpStatus.BAD_REQUEST, "포스트 불러오기 실패");
+//        조회수 증가
+        this.increasePostReadCount(postDTO.getId());
+
+//        게시글 불러오기 (없다면 예외)
+        PostDTO post = postDAO.findById(postDTO).orElseThrow(() -> {
+            throw new PostException(HttpStatus.BAD_REQUEST, "포스트 불러오기 실패");
         });
+
+//        게시글 반환
+        return post;
     }
 
 //    특정 유저의 프로필 에서 해당 유저가 작성 한 모든 게시글 보여주기
@@ -155,5 +163,11 @@ public class PostServiceImpl implements PostService {
         postVO.setUserId(userId);
 
         return postDAO.existByIdAndUserId(postVO) != 0;
+    }
+
+//    게시글 조회수 1 증가
+    @Override
+    public void increasePostReadCount(Long id) {
+        postDAO.updatePostReadCount(id);
     }
 }

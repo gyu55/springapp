@@ -111,9 +111,9 @@ public class PostServiceImpl implements PostService {
 
 //    게시글 작성
     @Override
-    public void writePost(Long userId, PostRequestDTO postRequestDTO) {
+    public void writePost(PostRequestDTO postRequestDTO) {
         PostVO postVO = PostVO.from(postRequestDTO);
-        postVO.setUserId(userId);
+        postVO.setUserId(getUserId());
         try {
             postDAO.save(postVO);
         } catch (Exception e) {

@@ -23,11 +23,6 @@ import java.util.Map;
 public class PostApi {
     private final PostService postService;
 
-//    로그인 되기 전 까지 유저 아이디 관련하는거 담당하는 매서드 임시 정의
-    public Long getUserId(){
-        return 3L;
-    }
-
 //    전체 포스트 가져오는거 정의
     @GetMapping("")
     @Operation(summary = "포스트 로드", description = "게시글 전체 로드")
@@ -122,9 +117,7 @@ public class PostApi {
     public  ResponseEntity<ApiResponseDTO> writePostTest(
             @RequestBody PostRequestDTO postRequestDTO
     ){
-//        가상 유저 아이디 생성 (이건 추후)
-        Long userId = getUserId();
-        postService.writePost(userId, postRequestDTO);
+        postService.writePost(postRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponseDTO.of(true, "게시글 작성 성공"));

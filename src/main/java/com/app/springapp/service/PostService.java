@@ -19,7 +19,7 @@ public interface PostService {
     public Map<String, Object> getUserPosts(Long userId, Map<String, Object> filters);
 
 //    게시글 작성
-    public void writePost(Long userId, PostRequestDTO postRequestDTO);
+    public void writePost(PostRequestDTO postRequestDTO);
 
 //    게시글 수정
     public void updatePost(Long id, PostRequestDTO postRequestDTO);
@@ -29,4 +29,6 @@ public interface PostService {
 
 //    게시글 접근권한 확인
     public boolean canTouchPost(Long id, Long userId);
+
+//    게시글 조회수 증가
 }

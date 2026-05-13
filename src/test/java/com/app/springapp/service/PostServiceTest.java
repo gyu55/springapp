@@ -77,7 +77,7 @@ public class PostServiceTest {
         postRequestDTO.setPostTag("자유게시판");
         Long userId = 3L;
 
-        postService.writePost(userId, postRequestDTO);
+        postService.writePost(postRequestDTO);
     }
 
 //    게시글 접근권한 테스트

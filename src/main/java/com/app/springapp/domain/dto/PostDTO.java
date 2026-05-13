@@ -33,4 +33,6 @@ public class PostDTO {
     private Long commentCount;
     @Schema(description = "유저가 좋아요 누른 여부", example = "1")
     private boolean isLiked;
+    @Schema(description = "해당 게시글 삭제 된 여부 (소프트 삭제)", example = "0")
+    private boolean postIsDeleted;
 }

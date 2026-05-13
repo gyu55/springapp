@@ -1,6 +1,7 @@
 package com.app.springapp.api;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
 import com.app.springapp.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -106,5 +107,45 @@ public class PostApi {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponseDTO.of(true, "유저 게시글 로드 성공", result));
+    }
+
+//    게시글 작성
+    @PostMapping("")
+    @Operation(description = "게시글 작성하기")
+    @ApiResponse(responseCode = "200", description = "게시글 작성 성공")
+    @ApiResponse(responseCode = "400", description = "게시글 작성 실패 (잘못된 요청)")
+    public  ResponseEntity<ApiResponseDTO> writePostTest(
+            @RequestBody PostRequestDTO postRequestDTO
+    ){
+        postService.writePost(postRequestDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDTO.of(true, "게시글 작성 성공"));
+    }
+
+//    게시글 수정
+    @PutMapping("/{id}")
+    @Operation(description = "게시글 수정하기")
+    @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
+    @ApiResponse(responseCode = "400", description = "해당 게시글 수정 권한 없습니다.")
+    public ResponseEntity<ApiResponseDTO> updatePost(
+            @PathVariable Long id,
+            @RequestBody PostRequestDTO postRequestDTO
+    ){
+        postService.updatePost(id, postRequestDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDTO.of(true, "게시글 수정 성공"));
+    }
+
+//    게시글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponseDTO> deletePost(
+            @PathVariable Long id
+    ){
+        postService.deletePost(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(ApiResponseDTO.of(true, "게시글 삭제 성공"));
     }
 }

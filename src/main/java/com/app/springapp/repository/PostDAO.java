@@ -1,6 +1,7 @@
 package com.app.springapp.repository;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.vo.PostVO;
 import com.app.springapp.mapper.PostMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,25 @@ public class PostDAO {
 //    유저가 작성한 게시글 전체 갯수
     public int countByUserId(Long userId) {
         return postMapper.countByUserId(userId);
+    }
+
+//    유저가 해당 게시글을 작성했어서 수정에 대한 권한이 있는지?
+    public int existByIdAndUserId(PostVO postVO) {
+        return postMapper.existByIdAndUserId(postVO);
+    }
+
+//    포스트 작성
+    public void save(PostVO postVO) {
+        postMapper.insert(postVO);
+    }
+
+//    게시글 수정
+    public void update(PostVO postVO) {
+        postMapper.update(postVO);
+    }
+
+//    게시글 삭제
+    public void updatePostIsDeleted(Long id) {
+        postMapper.updatePostIsDeleted(id);
     }
 }

@@ -1,8 +1,10 @@
 package com.app.springapp.mapper;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.vo.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +24,16 @@ public interface PostMapper {
 
 //    유저 작성한 게시글 전체 갯수
     public int countByUserId(Long userId);
+
+//    해당 게시글 수정 가능한지 (해당 게시글을 해당 유저가 작성한게 맞는지?)
+    public int existByIdAndUserId(PostVO postVO);
+
+//    게시글 작성
+    public void insert(PostVO postVO);
+
+//    게시글 수정
+    public void update(PostVO postVO);
+
+//    게시글 삭제 (소프트 삭제)
+    public void updatePostIsDeleted(Long id);
 }

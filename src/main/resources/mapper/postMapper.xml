@@ -9,8 +9,9 @@
             NVL(LIKE_COUNT, 0) AS LIKE_COUNT,
             NVL(COMMENT_COUNT, 0) AS COMMENT_COUNT
         FROM VW_POST_SUMMARY
+        WHERE POST_IS_DELETED = 0
         <if test="postTag != null and postTag != ''">
-            WHERE POST_TAG = #{postTag}
+            AND POST_TAG = #{postTag}
         </if>
         ORDER BY ID DESC
         OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
@@ -26,7 +27,7 @@
         FROM VW_POST_SUMMARY VPS
         LEFT JOIN TBL_POST_LIKE TBPLU
             ON VPS.ID = TBPLU.POST_ID AND TBPLU.USER_ID = #{userId}
-        WHERE VPS.ID = #{id}
+        WHERE VPS.ID = #{id} AND VPS.POST_IS_DELETED = 0
     </select>
 
     <select id="selectByUserId" parameterType="map" resultType="PostDTO">
@@ -36,7 +37,7 @@
             NVL(LIKE_COUNT, 0) AS LIKE_COUNT,
             NVL(COMMENT_COUNT, 0) AS COMMENT_COUNT
         FROM VW_POST_SUMMARY
-        WHERE USER_ID = #{userId}
+        WHERE USER_ID = #{userId} AND POST_IS_DELETED = 0
         ORDER BY ID DESC
         OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
@@ -44,15 +45,41 @@
     <select id="selectCount" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM TBL_POST
+        WHERE POST_IS_DELETED = 0
         <if test="postTag != null and postTag != ''">
-            WHERE POST_TAG = #{postTag}
+            AND POST_TAG = #{postTag}
         </if>
     </select>
 
     <select id="countByUserId" parameterType="Long" resultType="int">
         SELECT COUNT(*)
         FROM TBL_POST
-        WHERE USER_ID = #{userId}
+        WHERE USER_ID = #{userId} AND POST_IS_DELETED = 0
     </select>
 
+    <select id="existByIdAndUserId" parameterType="PostVO" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        WHERE ID = #{id} AND USER_ID = #{userId} AND POST_IS_DELETED = 0
+    </select>
+
+    <insert id="insert" parameterType="PostVO">
+        <selectKey resultType="Long" keyProperty="id" order="BEFORE">
+            SELECT SEQ_POST.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, POST_TAG, USER_ID)
+        VALUES (#{id}, #{postTitle}, #{postContent}, #{postTag}, #{userId})
+    </insert>
+
+    <update id="update" parameterType="PostVO">
+        UPDATE TBL_POST
+        SET POST_TITLE = #{postTitle}, POST_CONTENT = #{postContent}, POST_TAG = #{postTag}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updatePostIsDeleted" parameterType="Long">
+        UPDATE TBL_POST
+        SET POST_IS_DELETED = 1
+        WHERE ID = #{id}
+    </update>
 </mapper>

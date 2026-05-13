@@ -1,6 +1,7 @@
 package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,45 @@ public class PostServiceTest {
             log.info("유저 게시글 Key: {}", k);
             log.info("유저 게시글 Value: {}", v);
         });
+    }
+
+//    게시글 작성 테스트
+    @Test
+    public void writePostTest(){
+        PostRequestDTO postRequestDTO = new PostRequestDTO();
+        postRequestDTO.setPostTitle("수어로 노래를 불렀어요");
+        postRequestDTO.setPostContent("수어로도 노래를 할 수 있는게 신기해요");
+        postRequestDTO.setPostTag("자유게시판");
+        Long userId = 3L;
+
+        postService.writePost(postRequestDTO);
+    }
+
+//    게시글 접근권한 테스트
+    @Test
+    public void canTouchPostTest(){
+        Long id = 42L;
+        Long userId = 4L;
+
+        boolean result = postService.canTouchPost(id, userId);
+        log.info("접근 가능 여부: {}", result);
+    }
+
+//    게시글 수정 테스트
+    @Test
+    public void updatePostTest(){
+        Long id = 21L;
+        PostRequestDTO postRequestDTO = new PostRequestDTO();
+        postRequestDTO.setPostTitle("점자란");
+        postRequestDTO.setPostContent("만국 공통 입니다.");
+
+        postService.updatePost(id, postRequestDTO);
+    }
+
+//    게시글 삭제 테스트
+    @Test
+    public void deletePostTest(){
+        Long id = 21L;
+        postService.deletePost(id);
     }
 }

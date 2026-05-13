@@ -1,7 +1,9 @@
 package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import com.app.springapp.domain.dto.response.PostResponseDTO;
+import com.app.springapp.domain.vo.PostVO;
 import com.app.springapp.exception.PostException;
 import com.app.springapp.repository.PostDAO;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,11 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = {Exception.class})
 public class PostServiceImpl implements PostService {
     private final PostDAO postDAO;
+
+    //    로그인 되기 전 까지 유저 아이디 관련하는거 담당하는 매서드 임시 정의
+    public Long getUserId(){
+        return 3L;
+    }
 
     @Override
     public Map<String, Object> getAllPosts(Map<String, Object> req) {
@@ -100,5 +107,53 @@ public class PostServiceImpl implements PostService {
         result.put("postCounts", postCounts);
 
         return result;
+    }
+
+//    게시글 작성
+    @Override
+    public void writePost(PostRequestDTO postRequestDTO) {
+        PostVO postVO = PostVO.from(postRequestDTO);
+        postVO.setUserId(getUserId());
+        try {
+            postDAO.save(postVO);
+        } catch (Exception e) {
+            throw new PostException(HttpStatus.BAD_REQUEST, "게시글 작성 실패");
+        }
+    }
+
+//    게시글 수정
+    @Override
+    public void updatePost(Long id, PostRequestDTO postRequestDTO) {
+        Long userId = getUserId();
+        PostVO postVO = PostVO.from(postRequestDTO);
+        postVO.setId(id);
+        postVO.setUserId(userId);
+
+        if(canTouchPost(id, userId)){
+            postDAO.update(postVO);
+        } else {
+            throw new PostException(HttpStatus.BAD_REQUEST, "해당 게시글 수정 권한 없습니다.");
+        }
+    }
+
+//    게시글 삭제
+    @Override
+    public void deletePost(Long id) {
+        Long userId = getUserId();
+        if(canTouchPost(id, userId)){
+            postDAO.updatePostIsDeleted(id);
+        } else {
+            throw new PostException(HttpStatus.BAD_REQUEST, "해당 게시글 삭제 권한 없습니다.");
+        }
+    }
+
+//    유저가 해당 게시글 접근 권한 있는지 확인
+    @Override
+    public boolean canTouchPost(Long id, Long userId) {
+        PostVO postVO = new PostVO();
+        postVO.setId(id);
+        postVO.setUserId(userId);
+
+        return postDAO.existByIdAndUserId(postVO) != 0;
     }
 }

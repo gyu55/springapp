@@ -1,6 +1,7 @@
 package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.PostDTO;
+import com.app.springapp.domain.dto.request.PostRequestDTO;
 import com.app.springapp.domain.dto.response.PostResponseDTO;
 import com.app.springapp.repository.PostDAO;
 
@@ -18,8 +19,16 @@ public interface PostService {
     public Map<String, Object> getUserPosts(Long userId, Map<String, Object> filters);
 
 //    게시글 작성
+    public void writePost(PostRequestDTO postRequestDTO);
 
 //    게시글 수정
+    public void updatePost(Long id, PostRequestDTO postRequestDTO);
 
 //    게시글 삭제
+    public void deletePost(Long id);
+
+//    게시글 접근권한 확인
+    public boolean canTouchPost(Long id, Long userId);
+
+//    게시글 조회수 증가
 }

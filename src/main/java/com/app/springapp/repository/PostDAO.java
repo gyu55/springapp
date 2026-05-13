@@ -58,6 +58,11 @@ public class PostDAO {
         postMapper.update(postVO);
     }
 
+//    게시글 조회수 1 증가
+    public void updatePostReadCount(Long id) {
+        postMapper.updatePostReadCount(id);
+    }
+
 //    게시글 삭제
     public void updatePostIsDeleted(Long id) {
         postMapper.updatePostIsDeleted(id);

@@ -34,6 +34,9 @@ public interface PostMapper {
 //    게시글 수정
     public void update(PostVO postVO);
 
+//    게시글 조회수 1 증가
+    public void updatePostReadCount(Long id);
+
 //    게시글 삭제 (소프트 삭제)
     public void updatePostIsDeleted(Long id);
 }

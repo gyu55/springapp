@@ -1,6 +1,7 @@
 package com.app.springapp.repository;
 
 import com.app.springapp.domain.vo.ChatRoomVO;
+import com.app.springapp.mapper.ChatMemberMapper;
 import com.app.springapp.mapper.ChatRoomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,10 @@ public class ChatRoomDAO {
 //    채팅방 목록 전체 불러와주기
     public List<ChatRoomVO> findAll(){
         return chatRoomMapper.selectAll();
+    }
+
+//    채팅방 생성
+    public void save(ChatRoomVO chatRoomVO){
+        chatRoomMapper.insert(chatRoomVO);
     }
 }

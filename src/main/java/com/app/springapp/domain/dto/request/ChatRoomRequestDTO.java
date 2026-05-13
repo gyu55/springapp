@@ -14,6 +14,4 @@ public class ChatRoomRequestDTO {
     private String chatRoomType;
     @Schema(description = "채팅방 프로필 이미지", example = "default.jpg")
     private String chatRoomProfile;
-    @Schema(description = "개설자 유저 번호", example = "1", required = true)
-    private Long userId;
 }

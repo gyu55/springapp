@@ -14,37 +14,38 @@ public class ChatServiceTest {
     private ChatService chatService;
 
     // 채팅방 내 모든 메세지 불러오는 테스트
+//    테스트: 예
     @Test
     public void loadAllChatRoomMessageTest() {
-        chatService.loadAllChatRoomMessage(2L)
+        chatService.loadAllChatRoomMessage(1L)
                 .stream()
                 .forEach((chat) -> log.info(chat.toString()));
     }
 
 //    해당 채팅방에 유저가 참여 중인지 확인
+//    테스트 결과: 예
     @Test
     public void isUserInChatRoomTest(){
         ChatRequestDTO chatRequestDTO = new ChatRequestDTO();
-        chatRequestDTO.setChatRoomId(1L);
-        chatRequestDTO.setUserId(1L);
 
-        boolean result = chatService.isUserInChatRoom(chatRequestDTO);
+        boolean result = chatService.isUserInChatRoom(2L);
         log.info("결과: {}", result);
     }
 
 //    채팅방 내에 메세지 작성
+//    테스트: 예
     @Test
     public void writeChatRoomMessageTest() {
+        Long chatRoomId = 3L;
         ChatRequestDTO chatRequestDTO = new ChatRequestDTO();
-        chatRequestDTO.setChatRoomId(1L);
-        chatRequestDTO.setChatContent("반가워요");
+        chatRequestDTO.setChatContent("전 귀가 안들려요");
         chatRequestDTO.setChatType("텍스트");
-        chatRequestDTO.setUserId(2L);
 
-        chatService.writeChatMessage(chatRequestDTO);
+        chatService.writeChatMessage(chatRoomId, chatRequestDTO);
     }
 
 //    모든 채팅방 보여주는 서비스
+//    테스트: 예
     @Test
     public void loadAllChatRoomTest() {
         chatService.loadAllChatRoom()

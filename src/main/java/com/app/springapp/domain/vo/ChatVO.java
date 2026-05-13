@@ -19,8 +19,6 @@ public class ChatVO {
         ChatVO chatVO = new ChatVO();
         chatVO.setChatContent(chatRequestDTO.getChatContent());
         chatVO.setChatType(chatRequestDTO.getChatType());
-        chatVO.setUserId(chatRequestDTO.getUserId());
-        chatVO.setChatRoomId(chatRequestDTO.getChatRoomId());
         return chatVO;
     }
 }

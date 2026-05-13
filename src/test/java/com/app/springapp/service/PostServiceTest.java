@@ -107,4 +107,11 @@ public class PostServiceTest {
         Long id = 21L;
         postService.deletePost(id);
     }
+
+//    게시글 조회수 증가 테스트
+    @Test
+    public void increasePostReadCountTest(){
+        Long id = 61L;
+        postService.increasePostReadCount(id);
+    }
 }

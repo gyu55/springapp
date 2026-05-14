@@ -13,6 +13,7 @@ public class ChatRoomVO {
     private String chatRoomType;
     private LocalDateTime chatRoomCreateAt;
     private String chatRoomProfile;
+    private boolean chatRoomIsDeleted;
     private Long userId;
 
     public static ChatRoomVO from(ChatRoomRequestDTO chatRoomRequestDTO) {

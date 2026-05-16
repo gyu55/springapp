@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.springapp.mapper.ChatRoomMapper">
     <select id="selectAll" resultType="ChatRoomVO">
-        SELECT ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_CREATE_AT, CHAT_ROOM_PROFILE, USER_ID
+        SELECT ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_CREATE_AT, CHAT_ROOM_PROFILE, USER_ID, CHAT_ROOM_DETAIL, CHAT_ROOM_LIMIT
         FROM TBL_CHAT_ROOM
     </select>
 
@@ -10,7 +10,7 @@
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
             SELECT SEQ_CHAT_ROOM.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO TBL_CHAT_ROOM (ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_PROFILE, USER_ID)
-        VALUES (#{id}, #{chatRoomName}, #{chatRoomType}, #{chatRoomProfile}, #{userId})
+        INSERT INTO TBL_CHAT_ROOM (ID, CHAT_ROOM_NAME, CHAT_ROOM_TYPE, CHAT_ROOM_PROFILE, USER_ID, CHAT_ROOM_DETAIL, CHAT_ROOM_LIMIT)
+        VALUES (#{id}, #{chatRoomName}, #{chatRoomType}, #{chatRoomProfile}, #{userId}, #{chatRoomDetail}, #{chatRoomLimit})
     </insert>
 </mapper>

@@ -21,8 +21,12 @@ public class ChatRoomResponseDTO {
     private LocalDateTime chatRoomCreateAt;
     @Schema(description = "채팅방 프로필 이미지", example = "default.jpg")
     private String chatRoomProfile;
-    @Schema(description = "채팅방 개설자 유저 번호", example = "1")
-    private Long userId;
+//    @Schema(description = "채팅방 개설자 유저 번호", example = "1")
+//    private Long userId;
+    @Schema(description = "채팅방 상세 소개", example = "수어 관련 학습을 공유하는 채팅방 입니다")
+    private String chatRoomDetail;
+    @Schema(description = "채팅방 채팅 가능 정원", example = "100")
+    private int ChatRoomLimit;
 
     public static ChatRoomResponseDTO from(ChatRoomDTO dto) {
         ChatRoomResponseDTO res = new ChatRoomResponseDTO();
@@ -31,7 +35,7 @@ public class ChatRoomResponseDTO {
         res.setChatRoomType(dto.getChatRoomType());
         res.setChatRoomCreateAt(dto.getChatRoomCreateAt());
         res.setChatRoomProfile(dto.getChatRoomProfile());
-        res.setUserId(dto.getUserId());
+//        res.setUserId(dto.getUserId());
         return res;
     }
 
@@ -42,7 +46,9 @@ public class ChatRoomResponseDTO {
         res.setChatRoomType(chatRoomVO.getChatRoomType());
         res.setChatRoomCreateAt(chatRoomVO.getChatRoomCreateAt());
         res.setChatRoomProfile(chatRoomVO.getChatRoomProfile());
-        res.setUserId(chatRoomVO.getUserId());
+//        res.setUserId(chatRoomVO.getUserId());
+        res.setChatRoomLimit(chatRoomVO.getChatRoomLimit());
+        res.setChatRoomDetail(chatRoomVO.getChatRoomDetail());
         return res;
     }
 }

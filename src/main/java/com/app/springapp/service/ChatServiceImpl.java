@@ -78,4 +78,5 @@ public class ChatServiceImpl implements ChatService {
                 .map(ChatRoomResponseDTO::from)
                 .collect(Collectors.toList());
     }
+
 }

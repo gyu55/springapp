@@ -21,4 +21,8 @@ public class ChatRoomDTO {
     private String chatRoomProfile;
     @Schema(description = "채팅방 개설자 유저 번호", example = "1")
     private Long userId;
+    @Schema(description = "채팅방 상세 소개", example = "수어 관련 학습을 공유하는 채팅방 입니다")
+    private String chatRoomDetail;
+    @Schema(description = "채팅방 채팅 가능 정원", example = "100")
+    private int ChatRoomLimit;
 }

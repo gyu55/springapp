@@ -17,6 +17,7 @@ public interface PostService {
     public Map<String, Object> getUserPosts(Long userId, Map<String, Object> filters);
 
 //    유저가 좋아요 한 게시글 불러오기
+    public Map<String, Object> getUserLikedPosts(Long userId, Map<String, Object> filters);
 
 //    게시글 작성
     public void writePost(PostRequestDTO postRequestDTO);

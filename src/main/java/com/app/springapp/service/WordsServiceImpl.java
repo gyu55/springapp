@@ -1,4 +1,4 @@
-package com.app.springapp.service.edu;
+package com.app.springapp.service;
 
 import com.app.springapp.domain.dto.response.WordsResponseDTO;
 import com.app.springapp.exception.EduException;

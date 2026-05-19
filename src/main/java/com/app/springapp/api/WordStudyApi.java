@@ -2,7 +2,7 @@ package com.app.springapp.api;
 
 import com.app.springapp.domain.dto.response.ApiResponseDTO;
 import com.app.springapp.domain.vo.WordStudyVO;
-import com.app.springapp.service.edu.WordStudyService;
+import com.app.springapp.service.WordStudyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

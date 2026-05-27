@@ -26,7 +26,7 @@ public class ChatApi {
 
 //    채팅방 내에서 메세지 전체 조회
     @GetMapping("{chatRoomId}")
-    @Operation(description = "채팅방 내 전체 메세지 조회")
+    @Operation(summary = "채팅 메세지 조회", description = "채팅방 내 전체 메세지 조회")
     @ApiResponse(responseCode = "200", description = "전체 메세지 조회 성공")
     @ApiResponse(responseCode = "400", description = "전체 메세지 조회 실패 (잘못된 요청)")
     @Parameter(
@@ -48,7 +48,7 @@ public class ChatApi {
 
 //    채팅방에 메세지 작성
     @PostMapping("{chatRoomId}")
-    @Operation(description = "채팅방 내에서 메세지 작성")
+    @Operation(summary = "채팅 메세지 작성", description = "채팅방 내에서 메세지 작성")
     @ApiResponse(responseCode = "200", description = "메세지 작성 성공")
     @ApiResponse(responseCode = "400", description = "메세지 작성 실패 (잘못된 요청)")
     @Parameter(

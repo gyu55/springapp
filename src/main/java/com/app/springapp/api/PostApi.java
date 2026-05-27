@@ -193,7 +193,7 @@ public class PostApi {
 
 //    게시글 수정
     @PutMapping("/{id}")
-    @Operation(description = "게시글 수정하기")
+    @Operation(summary = "게시글 수정", description = "게시글 수정하기")
     @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
     @ApiResponse(responseCode = "400", description = "해당 게시글 수정 권한 없습니다.")
     public ResponseEntity<ApiResponseDTO> updatePost(

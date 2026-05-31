@@ -29,4 +29,6 @@ public class CommentDTO {
     private Long userId;
     @Schema(description = "부모 댓글 번호 (대댓글인 경우)", example = "1")
     private Long commentId;
+    @Schema(description = "로그인 유저의 좋아요 여부", example = "false")
+    private Boolean commentIsLiked;
 }

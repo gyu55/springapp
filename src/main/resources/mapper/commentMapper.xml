@@ -4,7 +4,16 @@
     <select id="selectAllByPostId" parameterType="map" resultType="CommentDTO">
         SELECT VC.ID, VC.COMMENT_CONTENT, VC.COMMENT_CREATE_AT, VC.COMMENT_LIKE_COUNT, VC.COMMENT_REPLY_COUNT,
                VC.COMMENT_ID, VC.USER_NICKNAME, VC.USER_PROFILE, VC.USER_ID, VC.POST_ID,
-               NVL2(TBC.COMMENT_ID, 1, 0) COMMENT_IS_LIKED
+               <choose>
+                   <when test="userId != null">
+                       NVL2(TBC.COMMENT_ID, 1, 0) AS COMMENT_IS_LIKED,
+                       CASE WHEN VC.USER_ID = #{userId} THEN 1 ELSE 0 END AS COMMENT_IS_WRITED
+                   </when>
+                   <otherwise>
+                       0 AS COMMENT_IS_LIKED,
+                       0 AS COMMENT_IS_WRITED
+                   </otherwise>
+               </choose>
         FROM VW_COMMENT VC
         <if test="userId != null">
         LEFT JOIN (
